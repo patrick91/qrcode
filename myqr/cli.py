@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
+import os
 
-# To be used just when PyInstaller is not installed
+from myqr.run import run
 
-from MyQR.__main__ import run
 
 def cli():
     import argparse
@@ -16,15 +16,18 @@ def cli():
     argparser.add_argument('-bri', '--brightness', type = float, help = 'A floating point value controlling the enhancement of brightness. Factor 1.0 always returns a copy of the original image, lower factors mean less color (brightness, contrast, etc), and higher values more. There are no restrictions on this value. Default: 1.0')
     args = argparser.parse_args()
 
-    run(
+    qr_name = run(
+        args.WORDs,
         args.version,
         args.level,
-        args.WORDs,
         args.picture,
         args.colorized,
         args.contrast,
         args.brightness
     )
+
+    print('Succeed! \nCheck out your QR-code at', os.path.abspath(qr_name))
+
 
 if __name__ == '__main__':
     cli()
